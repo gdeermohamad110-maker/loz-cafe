@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">كافيه لوز - Loz Cafe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf6f0;
+            --card-bg: #ffffff;
+            --text-color: #362419;
+            --accent-color: #5c3a21;
+            --highlight: #d97736;
+            --secondary-bg: #f0e6d8;
+            --border-color: #e2d4c3;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1412;
+            --card-bg: #28201c;
+            --text-color: #f3ece7;
+            --accent-color: #d97736;
+            --highlight: #f09355;
+            --secondary-bg: #362a24;
+            --border-color: #4a3b32;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #422a1d, #6b442b);
+            color: #ffffff;
+            padding: 25px 15px 20px 15px;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .top-controls {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            backdrop-filter: blur(5px);
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #2e7d32;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 15px 15px 15px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .search-container {
+            padding: 0 15px;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .categories {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 0 15px 10px 15px;
+        }
+
+        .cat-btn {
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .cat-btn.active {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        .section-title {
+            margin: 25px 15px 15px 15px;
+            font-size: 1.3rem;
+            border-right: 4px solid var(--highlight);
+            padding-right: 10px;
+        }
+
+        [dir="ltr"] .section-title {
+            border-right: none;
+            border-left: 4px solid var(--highlight);
+            padding-right: 0;
+            padding-left: 10px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: var(--secondary-bg);
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-weight: 900;
+            color: var(--highlight);
+            font-size: 1.1rem;
+        }
+
+        .order-btn {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-controls">
+            <button class="control-btn" onclick="toggleTheme()" id="themeBtn">🌙 الوضع الليلي</button>
+            <button class="control-btn" onclick="toggleLanguage()" id="langBtn">🇬🇧 English</button>
+        </div>
+        <h1 data-ar="لوز - Loz 🍫" data-en="Loz Cafe 🍫">لوز - Loz 🍫</h1>
+        <p class="subtitle" data-ar="بيت الشوكولاتة والقهوة المختصة في طرطوس" data-en="The Home of Chocolate & Specialty Coffee in Tartus">بيت الشوكولاتة والقهوة المختصة في طرطوس</p>
+        <span class="status-badge" data-ar="🟢 مفتوح الآن لاستقبالكم" data-en="🟢 Open Now">🟢 مفتوح الآن لاستقبالكم</span>
+    </header>
+
+    <div class="quick-actions">
+        <a href="tel:+96300000000" class="action-btn" data-ar="📞 اتصال مباشر" data-en="📞 Direct Call">📞 اتصال مباشر</a>
+        <a href="https://wa.me/96300000000" class="action-btn" data-ar="💬 واتساب" data-en="💬 WhatsApp">💬 واتساب</a>
+        <a href="#" class="action-btn" data-ar="📍 الخريطة" data-en="📍 Location">📍 الخريطة</a>
+    </div>
+
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchBox" placeholder="🔍 ابحث عن طلبك (مثلاً: رولات، قهوة، وافل...)" onkeyup="filterMenu(this.value)">
+    </div>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', event)" data-ar="الكل" data-en="All">الكل</button>
+        <button class="cat-btn" onclick="filterCategory('sweets', event)" data-ar="الحلويات والشوكولاتة" data-en="Sweets & Chocolate">الحلويات والشوكولاتة</button>
+        <button class="cat-btn" onclick="filterCategory('coffee', event)" data-ar="القهوة والمشروبات" data-en="Coffee & Drinks">القهوة والمشروبات</button>
+        <button class="cat-btn" onclick="filterCategory('atmosphere', event)" data-ar="الأجواء والجلسات" data-en="Atmosphere">الأجواء والجلسات</button>
+    </div>
+
+    <!-- قسم الحلويات والشوكولاتة -->
+    <h2 class="section-title" data-ar="طبق الشوكولاتة والحلويات 🧇" data-en="Chocolate & Sweets 🧇">طبق الشوكولاتة والحلويات 🧇</h2>
+    <div class="menu-grid">
+
+        <div class="card" data-category="sweets">
+            <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=600&q=80" alt="صينية رولات لوز" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="صينية رولات لوز سبيشال" data-en="Special Loz Crepe Rolls Tray">صينية رولات لوز سبيشال</div>
+                <div class="card-desc" data-ar="رولات الكريب المحشوة والمغرّقة بصلصة الشوكولاتة الفاخرة." data-en="Stuffed crepe rolls drenched in luxurious chocolate sauce.">رولات الكريب المحشوة والمغرّقة بصلصة الشوكولاتة الفاخرة.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="حسب الطلب" data-en="Upon Request">حسب الطلب</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20في%20طلب%20صينية%20رولات%20لوز" class="action-btn order-btn" data-ar="طلب واتساب" data-en="Order via WhatsApp">طلب واتساب</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-category="sweets">
+            <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&q=80" alt="قطع الكريب مع الصوص" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="قطع الكريب مع غموس الشوكولاتة" data-en="Crepe Pieces with Chocolate Dip">قطع الكريب مع غموس الشوكولاتة</div>
+                <div class="card-desc" data-ar="قطع هشة تُقدم مع كوب من صوص الشوكولاتة الساخنة الغنية." data-en="Fluffy pieces served with a cup of rich hot chocolate sauce.">قطع هشة تُقدم مع كوب من صوص الشوكولاتة الساخنة الغنية.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="حسب الطلب" data-en="Upon Request">حسب الطلب</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20في%20طلب%20قطع%20الكريب" class="action-btn order-btn" data-ar="طلب واتساب" data-en="Order via WhatsApp">طلب واتساب</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-category="sweets">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="طبق لوز بالمكسرات والأوريو" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="طبق لوز بالمكسرات والأوريو" data-en="Loz Plate with Nuts & Oreo">طبق لوز بالمكسرات والأوريو</div>
+                <div class="card-desc" data-ar="طبقات مميزة غنية بالشوكولاتة البيضاء والداكنة ورشة أوريو." data-en="Distinctive layers rich in white & dark chocolate with Oreo sprinkles.">طبقات مميزة غنية بالشوكولاتة البيضاء والداكنة ورشة أوريو.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="حسب الطلب" data-en="Upon Request">حسب الطلب</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20في%20طلب%20طبق%20لوز%20بالمكسرات" class="action-btn order-btn" data-ar="طلب واتساب" data-en="Order via WhatsApp">طلب واتساب</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-category="sweets">
+            <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" alt="رولات الشوكولاتة المقرمشة" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="رولات الشوكولاتة المقرمشة" data-en="Crispy Chocolate Rolls">رولات الشوكولاتة المقرمشة</div>
+                <div class="card-desc" data-ar="رولات الشوكولاتة المزيّنة بقطع الأوريو والكريمة الطازجة." data-en="Chocolate rolls garnished with Oreo pieces and fresh cream.">رولات الشوكولاتة المزيّنة بقطع الأوريو والكريمة الطازجة.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="حسب الطلب" data-en="Upon Request">حسب الطلب</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20في%20طلب%20رولات%20الشوكولاتة" class="action-btn order-btn" data-ar="طلب واتساب" data-en="Order via WhatsApp">طلب واتساب</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- قسم القهوة والمشروبات -->
+    <h2 class="section-title" data-ar="القهوة والمشروبات ☕" data-en="Coffee & Drinks ☕">القهوة والمشروبات ☕</h2>
+    <div class="menu-grid">
+
+        <div class="card" data-category="coffee">
+            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80" alt="آيس كافيه / فرابيه لوز" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="آيس كافيه / فرابيه لوز" data-en="Iced Coffee / Loz Frappe">آيس كافيه / فرابيه لوز</div>
+                <div class="card-desc" data-ar="مشروب القهوة الباردة المنعشة مع صوص الشوكولاتة الخاص." data-en="Refreshing cold coffee drink with signature chocolate sauce.">مشروب القهوة الباردة المنعشة مع صوص الشوكولاتة الخاص.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="حسب الطلب" data-en="Upon Request">حسب الطلب</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20في%20طلب%20آيس%20كافيه" class="action-btn order-btn" data-ar="طلب واتساب" data-en="Order via WhatsApp">طلب واتساب</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" data-category="coffee">
+            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80" alt="كابتشينو / لاتيه ساخن" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="كابتشينو / لاتيه ساخن" data-en="Hot Cappuccino / Latte">كابتشينو / لاتيه ساخن</div>
+                <div class="card-desc" data-ar="قهوة ممتازة ومحضرة بطريقة خاصة لأوقاتك الدافئة." data-en="Premium coffee specially prepared for your warm moments.">قهوة ممتازة ومحضرة بطريقة خاصة لأوقاتك الدافئة.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="حسب الطلب" data-en="Upon Request">حسب الطلب</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20في%20طلب%20لاتيه%20ساخن" class="action-btn order-btn" data-ar="طلب واتساب" data-en="Order via WhatsApp">طلب واتساب</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- قسم أجواء وجلسات لوز -->
+    <h2 class="section-title" data-ar="أجواء وجلسات لوز ✨" data-en="Loz Atmosphere ✨">أجواء وجلسات لوز ✨</h2>
+    <div class="menu-grid">
+
+        <div class="card" data-category="atmosphere">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="جلسات وأجواء لوز الفنية" class="card-img">
+            <div class="card-body">
+                <div class="card-title" data-ar="جلسات وأجواء لوز الفنية" data-en="Artistic Atmosphere & Seating">جلسات وأجواء لوز الفنية</div>
+                <div class="card-desc" data-ar="استمتع بأجواء هادئة وجلسات مريحة مع ديكورات والجداريات الفنية." data-en="Enjoy quiet vibes and cozy seating with artistic wall decorations.">استمتع بأجواء هادئة وجلسات مريحة مع ديكورات والجداريات الفنية.</div>
+                <div class="card-footer">
+                    <span class="price" data-ar="مرحباً بكم" data-en="Welcome">مرحباً بكم</span>
+                    <a href="https://wa.me/96300000000?text=أرغب%20بحجز%20طاولة%20في%20كافيه%20لوز" class="action-btn order-btn" data-ar="حجز طاولة" data-en="Book Table">حجز طاولة</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentLang = 'ar';
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const themeBtn = document.getElementById('themeBtn');
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeBtn.innerText = currentLang === 'ar' ? '🌙 الوضع الليلي' : '🌙 Dark Mode';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.innerText = currentLang === 'ar' ? '☀️ الوضع الفاتح' : '☀️ Light Mode';
+            }
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const htmlTag = document.getElementById('htmlTag');
+            const langBtn = document.getElementById('langBtn');
+            const searchBox = document.getElementById('searchBox');
+            const themeBtn = document.getElementById('themeBtn');
+
+            if (currentLang === 'en') {
+                htmlTag.setAttribute('dir', 'ltr');
+                htmlTag.setAttribute('lang', 'en');
+                langBtn.innerText = '🇸🇦 العربية';
+                searchBox.placeholder = '🔍 Search for items (e.g. rolls, coffee, waffle...)';
+            } else {
+                htmlTag.setAttribute('dir', 'rtl');
+                htmlTag.setAttribute('lang', 'ar');
+                langBtn.innerText = '🇬🇧 English';
+                searchBox.placeholder = '🔍 ابحث عن طلبك (مثلاً: رولات، قهوة، وافل...)';
+            }
+
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        function filterCategory(cat, event) {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.cat-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterMenu(query) {
+            const cards = document.querySelectorAll('.card');
+            const q = query.toLowerCase();
+            cards.forEach(card => {
+                const titleAr = card.querySelector('.card-title').getAttribute('data-ar').toLowerCase();
+                const titleEn = card.querySelector('.card-title').getAttribute('data-en').toLowerCase();
+                const descAr = card.querySelector('.card-desc').getAttribute('data-ar').toLowerCase();
+                const descEn = card.querySelector('.card-desc').getAttribute('data-en').toLowerCase();
+                
+                if (titleAr.includes(q) || titleEn.includes(q) || descAr.includes(q) || descEn.includes(q)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
